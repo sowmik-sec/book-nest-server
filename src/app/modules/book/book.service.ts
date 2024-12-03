@@ -62,7 +62,15 @@ const getAllBooks = async (
   };
 };
 
+const getSingleBook = async (id: string): Promise<IBook | null> => {
+  return await Book.findOne({ _id: id }).populate(
+    'bookAddedBy',
+    'name email -_id',
+  );
+};
+
 export const BookService = {
   createBook,
   getAllBooks,
+  getSingleBook,
 };
