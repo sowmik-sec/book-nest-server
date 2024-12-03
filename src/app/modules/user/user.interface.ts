@@ -10,13 +10,15 @@ export interface IUser {
 }
 
 // Put all user instance methods in this interface:
-export interface IUserMethods {
+export type UserModel = {
   isPasswordMatched(
     givenPassword: string,
     savedPassword: string,
   ): Promise<boolean>;
-  isUserExist(email: string): Promise<boolean>;
-}
+  isUserExist(
+    email: string,
+  ): Promise<Pick<IUser, 'email' | 'name' | 'password'>>;
+} & Model<IUser>;
 
 // Create a new Model type that knows about IUserMethods...
-export type UserModel = Model<IUser, object, IUserMethods>;
+// export type UserModel = Model<IUser, object, IUserMethods>;
