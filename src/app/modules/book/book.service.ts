@@ -68,9 +68,18 @@ const getSingleBook = async (id: string): Promise<IBook | null> => {
     'name email -_id',
   );
 };
+const updateBook = async (
+  id: string,
+  bookData: Partial<IBook>,
+): Promise<IBook | null> => {
+  return await Book.findOneAndUpdate({ _id: id }, bookData, {
+    new: true,
+  }).populate('bookAddedBy', 'name email -_id');
+};
 
 export const BookService = {
   createBook,
   getAllBooks,
   getSingleBook,
+  updateBook,
 };
