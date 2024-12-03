@@ -77,9 +77,14 @@ const updateBook = async (
   }).populate('bookAddedBy', 'name email -_id');
 };
 
+const deleteBook = async (id: string): Promise<IBook | null> => {
+  return await Book.findOneAndDelete({ _id: id });
+};
+
 export const BookService = {
   createBook,
   getAllBooks,
   getSingleBook,
   updateBook,
+  deleteBook,
 };
