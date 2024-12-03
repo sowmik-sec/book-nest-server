@@ -6,10 +6,13 @@ const createBookZodSchema = z.object({
     title: z.string().min(1, 'Title is required'),
     author: z.string().min(1, 'Author is required'),
     genre: z.string().min(1, 'Genre is required'),
-    publicationDate: z.date({
-      required_error: 'Publication date is required',
-      invalid_type_error: 'Invalid date format',
-    }),
+    publicationDate: z
+      .string()
+      .refine(dateStr => !isNaN(Date.parse(dateStr)), {
+        message: 'Invalid date format',
+      })
+      .transform(dateStr => new Date(dateStr))
+      .optional(),
     bookAddedBy: z
       .string()
       .min(1, 'User ID is required')
