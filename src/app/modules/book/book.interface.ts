@@ -10,3 +10,10 @@ export interface IBook {
 }
 
 export type BookModel = Model<IBook>;
+
+export type IBookFilters = {
+  searchTerm?: string;
+  publicationDate?: string;
+  genre?: string;
+  bookAddedBy?: string;
+};
