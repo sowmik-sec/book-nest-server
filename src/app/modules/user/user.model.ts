@@ -2,26 +2,34 @@ import { model, Schema } from 'mongoose';
 import { IUser, IUserMethods, UserModel } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../../config';
-const userSchema = new Schema<IUser, UserModel, IUserMethods>({
-  name: {
-    firstName: {
+const userSchema = new Schema<IUser, UserModel, IUserMethods>(
+  {
+    name: {
+      firstName: {
+        type: String,
+        required: true,
+      },
+      lastName: {
+        type: String,
+        required: true,
+      },
+    },
+    email: {
       type: String,
       required: true,
     },
-    lastName: {
+    password: {
       type: String,
       required: true,
     },
   },
-  email: {
-    type: String,
-    required: true,
+  {
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-});
+);
 
 userSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(
