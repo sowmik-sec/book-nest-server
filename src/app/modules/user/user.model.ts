@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import { IUser, IUserMethods, UserModel } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../../config';
@@ -37,3 +37,9 @@ userSchema.statics.isPasswordMatched = async function (
 ): Promise<boolean> {
   return await bcrypt.compare(givenPassword, savedPassword);
 };
+
+userSchema.statics.isUserExist = async function (email: string) {
+  return await User.findOne({ email }, { email: 1, name: 1, password: 1 });
+};
+
+const User = model<IUser, UserModel>('User', userSchema);

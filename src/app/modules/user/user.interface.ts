@@ -15,6 +15,7 @@ export interface IUserMethods {
     givenPassword: string,
     savedPassword: string,
   ): Promise<boolean>;
+  isUserExist(email: string): Promise<boolean>;
 }
 
 // Create a new Model type that knows about IUserMethods...
