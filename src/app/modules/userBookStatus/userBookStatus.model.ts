@@ -26,7 +26,7 @@ const userBookStatusSchema = new Schema<IUserBookStatus>(
   },
 );
 
-export const BookStatus = model<IUserBookStatus>(
+export const UserBookStatus = model<IUserBookStatus>(
   'BookStatus',
   userBookStatusSchema,
 );
