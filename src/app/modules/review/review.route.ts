@@ -5,7 +5,7 @@ import { ReviewController } from './review.controller';
 const router = express.Router();
 
 router.post(
-  '/create-book',
+  '/create-review',
   validateRequest(ReviewValidation.createReviewValidationZodSchema),
   ReviewController.createReview,
 );
@@ -20,4 +20,4 @@ router.patch(
 
 router.delete('/:id', ReviewController.deleteReview);
 
-export const BookRoutes = router;
+export const ReviewRoutes = router;
