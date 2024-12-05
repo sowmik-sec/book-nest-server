@@ -7,3 +7,9 @@ export interface IUserBookStatus {
   book: Schema.Types.ObjectId | IBook;
   status: 'wishlist' | 'reading' | 'finished';
 }
+
+export interface IUserBookStatusFilters {
+  user?: string;
+  book?: string;
+  status?: string;
+}
