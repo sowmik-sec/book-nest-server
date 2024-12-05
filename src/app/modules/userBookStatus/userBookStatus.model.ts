@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { IUserBookStatus } from './book.interface';
+import { IUserBookStatus } from './userBookStatus.interface';
 
 const userBookStatusSchema = new Schema<IUserBookStatus>(
   {
