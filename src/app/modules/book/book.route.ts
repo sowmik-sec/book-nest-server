@@ -14,7 +14,11 @@ router.get('/', BookController.getAllBooks);
 
 router.get('/:id', BookController.getSingleBook);
 
-router.patch('/:id', BookController.updateBook);
+router.patch(
+  '/:id',
+  validateRequest(BookValidation.updateBookZodSchema),
+  BookController.updateBook,
+);
 
 router.delete('/:id', BookController.deleteBook);
 
