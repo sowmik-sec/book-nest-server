@@ -17,6 +17,8 @@ const loginUser = async (
   if (!isUserExist) {
     throw new ApiError(StatusCodes.NOT_FOUND, 'User not found');
   }
+  const { _id } = isUserExist;
+
   const isPasswordMatched = User.isPasswordMatched(
     loginData.password,
     isUserExist.password,
@@ -26,12 +28,12 @@ const loginUser = async (
   }
   const { email } = loginData;
   const accessToken = JwtHelpers.createToken(
-    { email },
+    { email, id: _id },
     config.jwt.secret as Secret,
     config.jwt.jwt_expires_in as string,
   );
   const refreshToken = JwtHelpers.createToken(
-    { email },
+    { email, id: _id },
     config.jwt.refresh_secret as Secret,
     config.jwt.jwt_refresh_expires_id as string,
   );

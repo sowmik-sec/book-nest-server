@@ -49,7 +49,10 @@ userSchema.statics.isPasswordMatched = async function (
 };
 
 userSchema.statics.isUserExist = async function (email: string) {
-  return await User.findOne({ email }, { email: 1, name: 1, password: 1 });
+  return await User.findOne(
+    { email },
+    { _id: 1, email: 1, name: 1, password: 1 },
+  );
 };
 
 export const User = model<IUser, UserModel>('User', userSchema);

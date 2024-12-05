@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import { Model } from 'mongoose';
 
 export interface IUser {
@@ -17,7 +18,9 @@ export type UserModel = {
   ): Promise<boolean>;
   isUserExist(
     email: string,
-  ): Promise<Pick<IUser, 'email' | 'name' | 'password'>>;
+  ): Promise<
+    Pick<IUser, 'email' | 'name' | 'password'> & { _id: Types.ObjectId }
+  >;
 } & Model<IUser>;
 
 // Create a new Model type that knows about IUserMethods...
