@@ -9,13 +9,17 @@ const createReview = async (ReviewData: IBookReview): Promise<IBookReview> => {
 };
 
 const getAllReviews = async (
+  bookId: string,
   paginationOptions: IPaginationOptions,
 ): Promise<IGenericResponse<IBookReview[]>> => {
   const { page, limit, skip } =
     paginationHelpers.calculatePagination(paginationOptions);
-
-  const result = await Review.find().skip(skip).limit(limit);
-  const total = await Review.countDocuments();
+  const query = { book: bookId };
+  const result = await Review.find(query)
+    .populate('user', 'name email -_id')
+    .skip(skip)
+    .limit(limit);
+  const total = await Review.countDocuments(query);
   return {
     meta: {
       page,
@@ -32,11 +36,14 @@ const updateReview = async (
 ): Promise<IBookReview | null> => {
   return await Review.findOneAndUpdate({ _id: id }, ReviewData, {
     new: true,
-  });
+  }).populate('user', 'name email -_id');
 };
 
 const deleteReview = async (id: string): Promise<IBookReview | null> => {
-  return await Review.findOneAndDelete({ _id: id });
+  return await Review.findOneAndDelete({ _id: id }).populate(
+    'user',
+    'name email -_id',
+  );
 };
 
 export const ReviewService = {

@@ -18,8 +18,9 @@ const createReview = catchAsync(async (req: Request, res: Response) => {
   });
 });
 const getAllReviews = catchAsync(async (req: Request, res: Response) => {
+  const { bookId } = req.params;
   const paginationOptions = pick(req.query, paginationFields);
-  const result = await ReviewService.getAllReviews(paginationOptions);
+  const result = await ReviewService.getAllReviews(bookId, paginationOptions);
   sendResponse<IBookReview[]>(res, {
     statusCode: StatusCodes.OK,
     success: true,

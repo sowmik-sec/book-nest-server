@@ -10,7 +10,7 @@ router.post(
   ReviewController.createReview,
 );
 
-router.get('/', ReviewController.getAllReviews);
+router.get('/:bookId', ReviewController.getAllReviews);
 
 router.patch(
   '/:id',
